@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: url('../images/background-numbers-2.jpg');
+  color: #fff;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  text-align: center;
+}
+
+.app {
+  width: 90%;
+  padding: 30px;
+  display: flex;
+  align-items: flex-start;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+@media (min-width: 768px) {
+  .app {
+    width: 50%;
+  }
+}
+
+ul {
+  list-style: none;
+}
+
+button,
+input[type='submit'] {
+  cursor: pointer;
+}

@@ -1,13 +1,13 @@
 <script setup>
 import { ref } from 'vue';
 
-let amount = ref('');
-let title = ref('');
+const amount = ref('');
+const title = ref('');
 
-let emit = defineEmits(['transactionSubmitted']);
+const emit = defineEmits(['transactionSubmitted']);
 
 const error = ref("Inputs can't be empty");
-let showError = ref(false);
+const showError = ref(false);
 
 const onSubmit = () => {
   if (!amount.value || !title.value) {
@@ -15,21 +15,21 @@ const onSubmit = () => {
     return;
   } else {
     showError.value = false;
+
     const transactionData = {
       title: title.value,
       amount: amount.value
     };
 
     emit('transactionSubmitted', transactionData);
+
+    amount.value = '';
+    title.value = '';
   }
 };
 </script>
 <template>
   <form @submit.prevent="onSubmit">
-    <p>
-      To add an income put a positive number, to add an expense put a negative number. For float
-      number use dot, not comma.
-    </p>
     <input
       type="string"
       pattern="-?[0-9]+([,\.][0-9]+)?"
@@ -47,14 +47,22 @@ form {
   display: flex;
   flex-flow: column;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 input {
   box-sizing: border-box;
-  height: 30px;
-  width: 200px;
+  height: 40px;
+  width: 250px;
   margin: 3px;
-  padding: 3px;
+  padding: 5px;
   border-radius: 5px;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+input[type='submit'] {
+  background-color: #b0e0e6;
+  font-weight: 700;
 }
 </style>

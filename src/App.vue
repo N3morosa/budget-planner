@@ -1,35 +1,60 @@
 <script setup>
-import Title from './components/Title.vue';
-import Form from './components/Form.vue';
-import TransactionsList from './components/TransactionsList.vue';
-import Balance from './components/Balance.vue';
+import Instruction from '@/components/Instruction.vue';
+import Form from '@/components/Form.vue';
+import TransactionsList from '@/components/TransactionsList.vue';
+import Balance from '@/components/Balance.vue';
 
-import { ref } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
-let transactionsList = ref([]);
-let index = ref(0);
-let sum = ref(0);
+const transactionsList = ref([]);
 
-const handleTransaction = (transactionData) => {
+const handleTransactionAdd = (transactionData) => {
+  const { amount, title } = transactionData;
   transactionsList.value.push({
-    id: index.value + 1,
-    title: transactionData.title,
-    amount: transactionData.amount
+    id: amount + title,
+    title: title,
+    amount: amount
   });
-  console.log('OBJvALUES', Object.values(transactionData));
 
-  sum.value = transactionsList.value.reduce((accumulator, transaction) => {
+  addTransactionsListToLocalStorage();
+};
+
+const handleTransactionRemove = (id) => {
+  transactionsList.value = transactionsList.value.filter((transaction) => {
+    return transaction.id !== id;
+  });
+
+  addTransactionsListToLocalStorage();
+};
+
+let sum = computed(() => {
+  return transactionsList.value.reduce((accumulator, transaction) => {
     return accumulator + transaction.amount;
   }, 0);
+});
+
+const addTransactionsListToLocalStorage = () => {
+  localStorage.setItem('transactionsList', JSON.stringify(transactionsList.value));
 };
+
+onMounted(() => {
+  const existingTransactionsList = JSON.parse(localStorage.getItem('transactionsList'));
+
+  if (existingTransactionsList) {
+    transactionsList.value = existingTransactionsList;
+  }
+});
 </script>
 
 <template>
   <main>
-    <Title />
-    <Form @transactionSubmitted="handleTransaction" />
-    <TransactionsList :transactionsList="transactionsList" />
+    <Instruction />
     <Balance :sum="+sum" />
+    <Form @transactionSubmitted="handleTransactionAdd" />
+    <TransactionsList
+      :transactionsList="transactionsList"
+      @removeTransaction="handleTransactionRemove"
+    />
   </main>
 </template>
 
