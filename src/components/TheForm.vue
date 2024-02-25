@@ -57,12 +57,13 @@ input {
   margin: 3px;
   padding: 5px;
   border-radius: 5px;
-  border: none;
+  border: 1px solid grey;
   font-family: 'Montserrat', sans-serif;
 }
 
 input[type='submit'] {
   background-color: #b0e0e6;
+  border: none;
   font-weight: 700;
 }
 </style>

@@ -1,15 +1,17 @@
 <script setup>
-import Instruction from '@/components/Instruction.vue';
-import Form from '@/components/Form.vue';
-import TransactionsList from '@/components/TransactionsList.vue';
-import Balance from '@/components/Balance.vue';
+import TheInstruction from '@/components/TheInstruction.vue';
+import TheForm from '@/components/TheForm.vue';
+import TheTransactionsList from '@/components/TheTransactionsList.vue';
+import TheBalance from '@/components/TheBalance.vue';
 
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, provide } from 'vue';
 
+provide('currency', '$');
 const transactionsList = ref([]);
 
 const handleTransactionAdd = (transactionData) => {
   const { amount, title } = transactionData;
+
   transactionsList.value.push({
     id: amount + title,
     title: title,
@@ -48,10 +50,10 @@ onMounted(() => {
 
 <template>
   <main>
-    <Instruction />
-    <Balance :sum="+sum" />
-    <Form @transactionSubmitted="handleTransactionAdd" />
-    <TransactionsList
+    <TheInstruction />
+    <TheBalance :sum="+sum" />
+    <TheForm @transactionSubmitted="handleTransactionAdd" />
+    <TheTransactionsList
       :transactionsList="transactionsList"
       @removeTransaction="handleTransactionRemove"
     />

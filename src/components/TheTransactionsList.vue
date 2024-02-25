@@ -1,10 +1,13 @@
 <script setup>
+import { inject } from 'vue';
 defineProps({
   transactionsList: {
     type: Array,
     required: true
   }
 });
+
+const currency = inject('currency');
 const emit = defineEmits(['removeTransaction']);
 
 const removeButtonClick = (id) => {
@@ -22,7 +25,10 @@ const removeButtonClick = (id) => {
         :class="['list-item', transactionsListItem.amount > 0 ? 'income' : 'expense']"
       >
         {{ transactionsListItem.title }}:
-        <span class="amount">{{ transactionsListItem.amount }} PLN</span>
+        <span class="amount">
+          {{ transactionsListItem.amount }}
+          {{ currency }}
+        </span>
         <button
           class="remove-button"
           type="button"

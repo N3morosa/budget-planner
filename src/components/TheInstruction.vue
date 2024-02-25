@@ -9,6 +9,7 @@ const title = ref('Budget Planner');
     <h1>{{ title }}</h1>
     <p>To add an income put a positive number, to add an expense put a negative number.</p>
     <p>For float number use dot, not comma.</p>
+    <p>To change a currency click $ sign below and edit it.</p>
   </div>
 </template>
 
