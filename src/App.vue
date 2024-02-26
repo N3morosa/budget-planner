@@ -4,9 +4,8 @@ import TheForm from '@/components/TheForm.vue';
 import TheTransactionsList from '@/components/TheTransactionsList.vue';
 import TheBalance from '@/components/TheBalance.vue';
 
-import { ref, computed, onMounted, provide } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
-provide('currency', '$');
 const transactionsList = ref([]);
 
 const handleTransactionAdd = (transactionData) => {

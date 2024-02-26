@@ -1,17 +1,37 @@
 <script setup>
-import { inject } from 'vue';
+import { ref, onMounted } from 'vue';
 
-const currency = inject('currency');
+const currency = ref('$');
+
+const addCurrencyToLocalStorage = () => {
+  localStorage.setItem('currency', JSON.stringify(currency.value));
+};
+
+onMounted(() => {
+  const existingCurrency = JSON.parse(localStorage.getItem('currency'));
+
+  if (existingCurrency) {
+    currency.value = existingCurrency;
+  }
+});
 </script>
 
 <template>
-  <span contenteditable="true" class="currency">
-    {{ currency }}
-  </span>
+  <input
+    type="text"
+    class="currency"
+    v-model="currency"
+    @blur="addCurrencyToLocalStorage"
+    size="3"
+  />
 </template>
 
 <style scoped>
 .currency {
-  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
 }
 </style>

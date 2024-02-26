@@ -1,5 +1,6 @@
 <script setup>
-import { inject } from 'vue';
+import TransactionsCurrency from './TransactionsCurrency.vue';
+
 defineProps({
   transactionsList: {
     type: Array,
@@ -7,7 +8,6 @@ defineProps({
   }
 });
 
-const currency = inject('currency');
 const emit = defineEmits(['removeTransaction']);
 
 const removeButtonClick = (id) => {
@@ -27,7 +27,7 @@ const removeButtonClick = (id) => {
         {{ transactionsListItem.title }}:
         <span class="amount">
           {{ transactionsListItem.amount }}
-          {{ currency }}
+          <TransactionsCurrency />
         </span>
         <button
           class="remove-button"

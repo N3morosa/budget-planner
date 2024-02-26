@@ -10,10 +10,8 @@ defineProps({
 
 <template>
   <div class="balance">
-    <p>
-      Balance: {{ sum.toFixed(2) }}
-      <TransactionsCurrency />
-    </p>
+    <p>Balance: {{ sum.toFixed(2) }}</p>
+    <TransactionsCurrency />
   </div>
 </template>
 
@@ -23,6 +21,8 @@ p {
 }
 
 .balance {
+  display: flex;
+  align-items: center;
   margin-bottom: 40px;
   color: #000;
   font-size: 20px;
